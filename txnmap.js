@@ -1,5 +1,4 @@
 (function(window) {
-
   function Txn(map) {
     this._map = map;
     this._ins = {};
@@ -8,9 +7,9 @@
 
   Txn.prototype = {
     get: function(key) {
-      return key in this._del
-        ? undefined
-        : key in this._ins ? this._ins[key] : this._map[key];
+      if (key in this._del) return undefined;
+      if (key in this._ins) return this._ins[key];
+      return this._map[key];
     },
     set: function(key, value) {
       this._ins[key] = value;
@@ -31,12 +30,8 @@
   }
 
   TxnMap.prototype = {
-    get: function(s) {
-      return this._map[s];
-    },
-    mut: function(f) {
-      f(new Txn(this._map));
-    }
+    get: function(s) { return this._map[s]; },
+    mut: function(f) { f(new Txn(this._map)); }
   };
 
   var wrapper = window.txnmap = function(obj) {
