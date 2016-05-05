@@ -6,22 +6,21 @@
   }
 
   Txn.prototype = {
-    has: function(key) {
-      return !(key in this._del) && (key in this._ins ||
-                                     key in this._map);
+    has: function(k) {
+      return !(k in this._del) && (k in this._ins || k in this._map);
     },
-    get: function(key) {
-      if (key in this._del) return undefined;
-      if (key in this._ins) return this._ins[key];
-      return this._map[key];
+    get: function(k) {
+      if (k in this._del) return undefined;
+      if (k in this._ins) return this._ins[k];
+      return this._map[k];
     },
-    set: function(key, value) {
-      this._ins[key] = value;
-      delete this._del[key];
+    set: function(k, v) {
+      this._ins[k] = v;
+      delete this._del[k];
     },
-    delete: function(key) {
-      delete this._ins[key];
-      this._del[key] = null;
+    delete: function(k) {
+      delete this._ins[k];
+      this._del[k] = null;
     },
     commit: function() {
       var k;
