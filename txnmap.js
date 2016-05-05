@@ -1,42 +1,42 @@
 (function(window) {
   function Txn(map) {
-    this._map = map;
-    this._ins = {};
-    this._del = {};
+    this._m = map;
+    this._i = {};
+    this._d = {};
   }
 
   Txn.prototype = {
     has: function(k) {
-      return !(k in this._del) && (k in this._ins || k in this._map);
+      return !(k in this._d) && (k in this._i || k in this._m);
     },
     get: function(k) {
-      if (k in this._del) return undefined;
-      if (k in this._ins) return this._ins[k];
-      return this._map[k];
+      if (k in this._d) return undefined;
+      if (k in this._i) return this._i[k];
+      return this._m[k];
     },
     set: function(k, v) {
-      this._ins[k] = v;
-      delete this._del[k];
+      this._i[k] = v;
+      delete this._d[k];
     },
     delete: function(k) {
-      delete this._ins[k];
-      this._del[k] = null;
+      delete this._i[k];
+      this._d[k] = null;
     },
     commit: function() {
       var k;
-      for (k in this._ins) this._map[k] = this._ins[k];
-      for (k in this._del) delete this._map[k];
+      for (k in this._i) this._m[k] = this._i[k];
+      for (k in this._d) delete this._m[k];
     }
   };
 
   function TxnMap(obj) {
-    this._map = obj || {};
+    this._m = obj || {};
   }
 
   TxnMap.prototype = {
-    has: function(k) { return k in this._map; },
-    get: function(k) { return this._map[k]; },
-    mut: function(f) { f(new Txn(this._map)); }
+    has: function(k) { return k in this._m; },
+    get: function(k) { return this._m[k]; },
+    mut: function(f) { f(new Txn(this._m)); }
   };
 
   var wrapper = window.txnmap = function(obj) {
