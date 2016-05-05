@@ -14,3 +14,16 @@ map.mut(function(txn) {
 });
 assert(map.get('key') === 'value');
 ```
+
+## Installation
+
+```sh
+$ bower install eugene-eeo/txnmap.js
+```
+
+## Development
+
+```sh
+$ make
+$ open test/index.html
+```
