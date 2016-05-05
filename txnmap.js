@@ -39,9 +39,10 @@
     mut: function(f) { f(new Txn(this._m)); }
   };
 
-  var wrapper = window.txnmap = function(obj) {
+  function wrapper(obj) {
     return new TxnMap(obj);
   };
   wrapper.TxnMap = TxnMap;
   wrapper.Txn = Txn;
+  window.txnmap = wrapper;
 })(this);
