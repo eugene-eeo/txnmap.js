@@ -1,8 +1,8 @@
 (function(window) {
   function Txn(map) {
     this._m = map;
-    this._i = {};
-    this._d = {};
+    this._i = {};  // Insertions
+    this._d = {};  // Deletions
   }
 
   Txn.prototype = {
