@@ -30,7 +30,7 @@
   }
 
   TxnMap.prototype = {
-    get: function(s) { return this._map[s]; },
+    get: function(k) { return this._map[k]; },
     mut: function(f) { f(new Txn(this._map)); }
   };
 
