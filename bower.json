@@ -20,7 +20,7 @@
     "tests"
   ],
   "devDependencies": {
-    "chai": "~3.4.2",
-    "mocha": "~2.3.4"
+    "chai": "~3.5.0",
+    "mocha": "~2.4.5"
   }
 }
