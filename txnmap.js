@@ -6,6 +6,10 @@
   }
 
   Txn.prototype = {
+    has: function(key) {
+      return !(key in this._del) && (key in this._ins ||
+                                     key in this._map);
+    },
     get: function(key) {
       if (key in this._del) return undefined;
       if (key in this._ins) return this._ins[key];
@@ -30,6 +34,7 @@
   }
 
   TxnMap.prototype = {
+    has: function(k) { return k in this._map; },
     get: function(k) { return this._map[k]; },
     mut: function(f) { f(new Txn(this._map)); }
   };
