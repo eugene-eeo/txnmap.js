@@ -20,7 +20,7 @@
     },
     delete: function(k) {
       delete this._i[k];
-      this._d[k] = null;
+      this._d[k] = 1;
     },
     commit: function() {
       var k;
