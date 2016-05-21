@@ -32,7 +32,7 @@ describe('Txn', function() {
 
     it('ignores deleted data', function() {
       txn.delete('k');
-      assert.notOk(txn.get('k'));
+      assert(!txn.has('k'));
     });
   });
 
