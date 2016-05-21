@@ -1,8 +1,9 @@
 (function(window) {
   function Txn(map) {
     this._m = map;
-    this._i = {};  // Insertions
-    this._d = {};  // Deletions
+    this._i = {};    // Insertions
+    this._d = {};    // Deletions
+    this._c = false; // Committed?
   }
 
   Txn.prototype = {
@@ -23,9 +24,12 @@
       this._d[k] = 1;
     },
     commit: function() {
-      var k;
-      for (k in this._i) this._m[k] = this._i[k];
-      for (k in this._d) delete this._m[k];
+      if (!this._c) {
+        var k;
+        for (k in this._i) this._m[k] = this._i[k];
+        for (k in this._d) delete this._m[k];
+        this._c = true;
+      }
     }
   };
 

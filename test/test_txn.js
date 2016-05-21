@@ -83,5 +83,19 @@ describe('Txn', function() {
         a: '1',
       });
     });
+
+    it('only applies changes once', function() {
+      var obj = {};
+      var txn = new txnmap.Txn(obj);
+
+      txn.set('a', 1);
+      txn.commit();
+
+      assert.deepEqual(obj, {a: 1});
+
+      txn.set('b', 2);
+      txn.commit();
+      assert.deepEqual(obj, {a: 1});
+    });
   });
 });
