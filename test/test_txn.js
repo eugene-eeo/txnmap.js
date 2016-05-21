@@ -34,6 +34,11 @@ describe('Txn', function() {
       txn.delete('k');
       assert(!txn.has('k'));
     });
+
+    it('returns undefined for nonexistent keys', function() {
+      assert.equal(txn.get('k'), undefined);
+      assert.equal(txn.get('p'), undefined);
+    });
   });
 
   describe('.set', function() {
